@@ -6,13 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Yeon+Sung&display=swap');
+
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+            font-family: 'Yeon Sung', cursive;
+            font-weight: 400;
+        }
+
         html {
             min-height: 100%;
             position: relative;
         }
 
-       /* body{
+        /* body{
             width: 100%;
             height: 100%;
             background: url('./background.jpg');
@@ -39,25 +50,162 @@
             background-size: cover;
             background-attachment: fixed;
             z-index: -1;
+            filter: blur(10px);
         }
-        .word{
-            width: 200px;
+
+        form{
+            margin-top: 100px;
+        }
+        .word,.meaning,.dropdown-value, .submit {
+            width: 400px;
             height: 50px;
             background: #edb458;
             border: 1px solid #edb458;
             border-radius: 20px;
             outline: none;
+            font-size: 26px;
+            font-weight: bold;
+            padding-left: 20px;
+            padding-right: 20px;
+            color: #2c3e4c;
         }
+
+        .inputcontainer {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 50px;
+            
+        }
+
+        label {
+            flex: 50%;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e4c;
+        }
+
+        .word-input {
+            flex: 50%;
+            text-align: left;
+        }
+        .dropdown-container{
+            position: relative;
+            width: 380px;
+        }
+        .dropdown-value{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .dropdown-value i{
+            position: absolute;
+            top: 8px;
+            right: 8px;
+        }
+        .dropdown{
+            position: absolute;
+            display: none;
+            border: 10px solid #2c3e4c;
+            z-index: 1;
+        }
+        .item{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 380px;
+            height: 50px;
+            background: #edb458;
+            border: 1px solid #edb458;
+            border-radius: 20px;
+            outline: none;
+            font-size: 26px;
+            font-weight: bold;
+            padding-left: 20px;
+            padding-right: 20px;
+            color: #2c3e4c;
+            text-align: center;
+        }
+        .item:hover{
+            background: #2c3e4c;
+            color: #edb458;
+            border: 3px solid #edb458;
+        }
+       
+        .menu-open{
+            display: block;
+        }
+        .rowcentered{
+            justify-content: center;
+        }
+        .margintop{
+            margin-top: 140px;
+        }
+        .submit{
+            background: #2c3e4c;
+            color: #edb458;
+        }
+
     </style>
 </head>
 
 <body>
     <div class="container">
         <form>
-            <input type="text" class="word">
+            <div class="inputcontainer">
+                <label>Word</label>
+                <div class="word-input">
+                    <input type="text" class="word">
+                </div>
+            </div>
+            <div class="inputcontainer">
+                <label>Meaning</label>
+                <div class="word-input">
+                    <input type="text" class="meaning">
+                </div>
+            </div>
+            <div class="inputcontainer">
+                <label>Language</label>
+                <div class="word-input">
+                    <div class="dropdown-container">
+                        <div class="dropdown-value"><span class="dropdown-main-text">English</span><i class="fa-solid fa-caret-down"></i></div>
+                        <div class="dropdown">
+                            <div class="item">English</div>
+                            <div class="item">Russian</div>
+                            <div class="item">German</div>
+                            <div class="item">Hindi</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="inputcontainer rowcentered margintop">
+                <button class="submit">Add Word</button>
+            </div>
         </form>
-        
     </div>
+    <script>
+        var dropdownitem = document.getElementsByClassName("item");
+        var dropdownvalue = document.getElementsByClassName("dropdown-value")[0];
+        var dropdownmaintext = document.getElementsByClassName("dropdown-main-text")[0];
+        var dropdown = document.getElementsByClassName("dropdown")[0];
+        dropdownvalue.addEventListener("click", ()=>{
+            dropdown.classList.toggle('menu-open');
+        })
+        for(var i =0; i<dropdownitem.length;i++){
+
+            console.log(dropdownitem[i].innerText);
+            dropdownitem[i].addEventListener("click", (e)=>{
+                e.preventDefault();
+                console.log(e.target.innerText);
+                //console.log(this.innerText);
+                dropdownmaintext.innerText = e.target.innerText;
+                dropdown.classList.remove('menu-open');
+            })
+        }
+    </script>
 </body>
 
 </html>
